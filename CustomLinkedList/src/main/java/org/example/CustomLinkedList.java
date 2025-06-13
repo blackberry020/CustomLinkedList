@@ -3,20 +3,6 @@ package org.example;
 import java.util.NoSuchElementException;
 
 public class CustomLinkedList<E> {
-    private static class Node<E> {
-        E item;
-        Node<E> prev, next;
-
-        Node(E element){
-            this.item = element;
-        }
-        Node(Node<E> prev, E element, Node<E> next){
-            this.prev = prev;
-            this.item = element;
-            this.next = next;
-        }
-    }
-
     private Node<E> first, last;
     private int size = 0;
 
@@ -28,10 +14,12 @@ public class CustomLinkedList<E> {
         Node<E> f = first;
         Node<E> newNode = new Node<>(null, el, f);
         first = newNode;
-        if(f == null)
+
+        if (f == null) {
             last = newNode;
-        else
+        } else {
             f.prev = newNode;
+        }
         size++;
     }
 
@@ -39,21 +27,23 @@ public class CustomLinkedList<E> {
         Node<E> l = last;
         Node<E> newNode = new Node<>(l, el, null);
         last = newNode;
-        if(l == null)
+
+        if (l == null) {
             first = newNode;
-        else
+        } else {
             l.next = newNode;
+        }
         size++;
     }
 
     public void add(int index, E el){
         checkPositionIndex(index);
 
-        if(index == 0)
+        if (index == 0) {
             addFirst(el);
-        else if(index == size)
+        } else if (index == size) {
             addLast(el);
-        else{
+        } else {
             Node<E> current = getNode(index);
             Node<E> prevNode = current.prev;
             Node<E> newNode = new Node<>(prevNode, el, current);
@@ -83,10 +73,12 @@ public class CustomLinkedList<E> {
         checkNotEmpty();
         E item = first.item;
         first = first.next;
-        if(first != null)
+
+        if (first != null) {
             first.prev = null;
-        else
+        } else {
             last = null;
+        }
         size--;
         return item;
     }
@@ -95,10 +87,12 @@ public class CustomLinkedList<E> {
         checkNotEmpty();
         E item = last.item;
         last = last.prev;
-        if(last != null)
+
+        if (last != null) {
             last.next = null;
-        else
+        } else {
             first = null;
+        }
         size--;
         return item;
     }
@@ -110,15 +104,17 @@ public class CustomLinkedList<E> {
         Node<E> prev = node.prev;
         Node<E> next = node.next;
 
-        if(prev != null)
+        if (prev != null) {
             prev.next = next;
-        else
+        } else {
             first = next;
+        }
 
-        if(next != null)
+        if (next != null) {
             next.prev = prev;
-        else
+        } else {
             last = prev;
+        }
 
         node.prev = node.next = null;
         node.item = null;
@@ -129,14 +125,16 @@ public class CustomLinkedList<E> {
 
     private Node<E> getNode(int index){
         Node<E> current;
-        if(index < (size / 2)){
+        if (index < (size / 2)) {
             current = first;
-            for(int i = 0; i < index; i++)
+            for (int i = 0; i < index; i++) {
                 current = current.next;
-        }else{
+            }
+        } else {
             current = last;
-            for(int i = size - 1; i > index; i--)
+            for(int i = size - 1; i > index; i--) {
                 current = current.prev;
+            }
         }
         return current;
     }
@@ -151,5 +149,19 @@ public class CustomLinkedList<E> {
 
     private void checkNotEmpty(){
         if(size == 0) throw new NoSuchElementException("List is empty");
+    }
+
+    private static class Node<E> {
+        E item;
+        Node<E> prev, next;
+
+        Node(E element){
+            this.item = element;
+        }
+        Node(Node<E> prev, E element, Node<E> next){
+            this.prev = prev;
+            this.item = element;
+            this.next = next;
+        }
     }
 }
