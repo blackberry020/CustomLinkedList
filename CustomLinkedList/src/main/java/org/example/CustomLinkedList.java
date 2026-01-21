@@ -10,6 +10,8 @@ public class CustomLinkedList<E> {
         return size;
     }
 
+
+
     public void addFirst(E el){
         Node<E> f = first;
         Node<E> newNode = new Node<>(null, el, f);
