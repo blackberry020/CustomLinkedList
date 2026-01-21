@@ -15,7 +15,7 @@ public class CustomLinkedList<E> {
     public void addFirst(E el){
         Node<E> f = first;
         Node<E> newNode = new Node<>(null, el, f);
-        first = newNode;
+        //first = newNode;
 
         if (f == null) {
             last = newNode;
